@@ -1,0 +1,105 @@
+--CASO MODELO--
+caso para estudiar el efecto de distintas variables
+| S-500 | sintético | 500 | 175 | 8 | escala media |
+
+FRACCION_PRESUPUESTO = 0.4               
+RADIO_LENTA_M = 120.0                    
+RADIO_RAPIDA_M = 220.0                   
+RATIO_DEMANDA_CAPACIDAD = 0.8            
+RANGO_CAP_SUBESTACIONES = (0.9, 1.1)     
+FRACCION_HOTSPOTS = 0.1                 
+
+
+SINTETICO_N_NODOS = 500
+SINTETICO_ESCALA_METROS = 2600.0
+SINTETICO_N_CANDIDATOS = 175
+SINTETICO_N_SUBESTACIONES = 8
+
+tam_poblacion=100,   
+    # Criterio de parada: "generaciones" (nº fijo), "tiempo" (segundos) o "estancamiento".
+    criterio_parada="generaciones",
+    num_generaciones=150,              
+    num_semillas_greedy=2,         # antes 10: el greedy ya daba ~99 % del óptimo y eclipsaba al AG, aporta mucho que en pocas generaciones lleguemos al tope
+    tipo_cruce="subestacion",      # "subestacion" (cruce por barrios) | "uniforme"
+    prob_cruce=0.9,
+    prob_mutacion_gen=None,        # 1/|J|
+    prob_mutacion_intercambio=0.7, # prob. por hijo de aplicar mutación de intercambio (mover/cambiar tipo/abrir)
+    max_intercambios=3,            # movimientos por mutación: uniforme en 1..max
+    tam_torneo=3,                 
+    num_elite=4,
+
+..............................................
+CASO 1: tam_poblacion = 100
+--- Resultado --- total=462.2s
+Demanda total de la ciudad:      2831.08
+Demanda atendida (fitness):      2615.58 (92.4 %)
+Coste usado / Presupuesto:       2894359.5 / 2906456.2
+¿Solución factible?              True
+Uso por subestación:              {0: 358.3668463272161, 1: 213.4384896676949, 2: 661.9768056987698, 3: 348.69095905588404, 4: 662.8752736360013, 5: 213.86617443115563, 6: 368.22308944106396, 7: 249.46181320465575}
+Capacidad por subestación:        {0: 417.4154505831537, 1: 226.92316587061313, 2: 669.8280891200108, 3: 446.1418541341094, 4: 666.4284027607899, 5: 354.2296291104935, 6: 409.62341565610905, 7: 339.24063455683284}
+Estaciones instaladas: 23 lentas + 65 rápidas (de 175 candidatos)
+
+CASO 2: tam_poblacion = 50
+--- Resultado --- total=199.7s
+Demanda total de la ciudad:      2831.08
+Demanda atendida (fitness):      2627.64 (92.8 %)
+Coste usado / Presupuesto:       2905149.8 / 2906456.2
+¿Solución factible?              True
+Uso por subestación:              {0: 398.56195177565274, 1: 204.23404395218435, 2: 666.0753511366273, 3: 318.8866381749131, 4: 656.6570310743244, 5: 203.8092444853113, 6: 383.16460198738105, 7: 273.6603195621403}
+Capacidad por subestación:        {0: 417.4154505831537, 1: 226.92316587061313, 2: 669.8280891200108, 3: 446.1418541341094, 4: 666.4284027607899, 5: 354.2296291104935, 6: 409.62341565610905, 7: 339.24063455683284}
+Estaciones instaladas: 28 lentas + 63 rápidas (de 175 candidatos)
+
+CASO 3: tam_poblacion = 10
+--- Resultado ---total=24.6s
+Demanda total de la ciudad:      2831.08
+Demanda atendida (fitness):      2538.37 (89.7 %)
+Coste usado / Presupuesto:       2875576.2 / 2906456.2
+¿Solución factible?              True
+Uso por subestación:              {0: 406.1347511720715, 1: 214.68738144915173, 2: 669.4957311903316, 3: 277.88845463626063, 4: 657.8199713967439, 5: 260.70889938090534, 6: 389.46843827981655, 7: 237.4590016403849}
+Capacidad por subestación:        {0: 417.4154505831537, 1: 226.92316587061313, 2: 669.8280891200108, 3: 446.1418541341094, 4: 666.4284027607899, 5: 354.2296291104935, 6: 409.62341565610905, 7: 339.24063455683284}
+Estaciones instaladas: 29 lentas + 63 rápidas (de 175 candidatos)
+
+###
+Cometario: El tamaño de poblacion no afecta de forma significativa
+Parece que es el individuo greedy el que aproxima más al óptimo
+más rapidamente, una generacion de inviduos de calidad.
+
+A mas poblacion en este caso, más lenta la computacion y no genera 
+gran cambio. Con poblacion reducida y algunos pocos individuos 
+con generacion greedy generan buenos resultados.
+
+Poca poblacion inicial (10) vuelve rapidisima el algoritmo,
+pero comienza a perder preción y necesitar más generaciones para converger.
+
+CASO 4: num_semillas_greedy = 0, tam_poblacion = 50
+--- Resultado --- total=212.0s
+Demanda total de la ciudad:      2831.08
+Demanda atendida (fitness):      2562.73 (90.5 %)
+Coste usado / Presupuesto:       2906182.8 / 2906456.2
+¿Solución factible?              True
+Uso por subestación:              {0: 348.4832296728598, 1: 214.98945978507706, 2: 669.0509666469042, 3: 296.22590226751817, 4: 660.9556280851867, 5: 241.47464857313327, 6: 352.6849396199053, 7: 253.35490391245114}
+Capacidad por subestación:        {0: 417.4154505831537, 1: 226.92316587061313, 2: 669.8280891200108, 3: 446.1418541341094, 4: 666.4284027607899, 5: 354.2296291104935, 6: 409.62341565610905, 7: 339.24063455683284}
+Estaciones instaladas: 43 lentas + 55 rápidas (de 175 candidatos)
+
+###
+Comentario: Problema de no usar semillas_greedy es 
+partir de una solucion inicial aleatoria, pero 
+sobre todo el cruce se vuelve muy lento por reparaciones
+constantes debido a que toda la poblacion es aleatoria 
+e igual de "mala".
+
+
+
+
+
+--TALLAS--
+| Id | Grafo | |V| aprox. | |J| | K | Qué aporta |
+|---|---|---|---|---|---|
+| S-100 | sintético geométrico | 100 | 35 | 3 | caso mínimo, permite solución exacta |
+| S-250 | sintético | 250 | 90 | 5 | escala media-baja |
+| S-500 | sintético | 500 | 175 | 8 | escala media |
+| S-1000 | sintético | 1000 | 350 | 12 | escala alta |
+| R-pueblo | real, pueblo pequeño | ~100–200 | ~50 | 3 | trama irregular rural |
+| R-grid | real, trama regular (p. ej. Eixample, Barcelona) | ~400–700 | ~200 | 8 | calles en cuadrícula |
+| R-centro | real, Madrid Sol (ya probado) | ~700 | 250 | 10 | trama densa histórica |
+| R-ciudad | real, radio ~2 km | ~1500–2500 | ~500 | 15 | escala máxima real |

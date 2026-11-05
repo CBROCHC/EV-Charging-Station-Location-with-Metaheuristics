@@ -1,0 +1,9 @@
+networkx>=3.0
+numpy>=1.24
+matplotlib>=3.7
+
+# Solo necesarios para grafos de ciudades REALES (grafo_real.py) y su
+# visualización sobre mapa (visualizacion.dibujar_mapa_real). Si solo vas
+# a trabajar con los grafos sintéticos reducidos, no hacen falta.
+osmnx>=2.0
+folium>=0.19
