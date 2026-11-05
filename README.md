@@ -393,7 +393,7 @@ A 2 h run shows **three temperature-driven phases**: (1) *exploration* — best 
 │   ├── experimentos_es.py            # SA experiments (T0×α, schemes, operators, init)
 │   ├── run_ag_2h.py / run_es_2h.py   # 2-hour runs with checkpoints
 │   └── comparar_2h.py                # GA vs SA comparison plots
-├── hpc/                              # SLURM job scripts used on the UPV cluster
+|                            
 └── results/
     ├── sa_calibration/               # T0×α sweep: CSV + figures
     └── ga_vs_sa_2h/                  # 2 h comparison: CSV, figures, raw run histories (.pkl)
