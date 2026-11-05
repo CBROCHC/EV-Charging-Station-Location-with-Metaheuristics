@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ EV Charging Station Location with Metaheuristics
+# EV Charging Station Location with Metaheuristics
 
 ### Genetic Algorithm vs. Simulated Annealing on real city graphs — with station types and substation capacity limits
 
