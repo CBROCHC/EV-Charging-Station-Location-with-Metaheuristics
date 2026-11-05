@@ -111,6 +111,3 @@ The **recommended** values found in the study (population 100, tournament 5, eli
 
 Seeds: 15 GA seeds (101–115) per configuration; the instance itself always uses a fixed instance seed, so only the algorithm varies between repetitions.
 
-## SLURM scripts (`hpc/`)
-
-`job_A.sh … job_D.sh` (GA phases), `job_barrido_es.sh` (SA sweep), `job_ag_2h.sh` / `job_es_2h.sh` (2 h runs) and `empaquetar.sh` (bundle results) were written for the UPV cluster (`docencia` / `long` queues, a conda env named `metaheur`, project folder `$HOME/metaheuristicas`). Edit queue names, paths and the environment before reusing them. The GA/SA are CPU-only; set `OMP_NUM_THREADS=1` and parallelise over runs (`--workers`).
