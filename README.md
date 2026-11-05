@@ -196,7 +196,7 @@ Instances are built from real OpenStreetMap graphs (a village, a grid-like distr
 
 | Parameter | Levels tested | **Final** |
 |---|---|---|
-| Population size | 50, 100, 200 | **100** |
+| Population size | 50, 100, 200, 1000 | **1000** |
 | Tournament size | 2, 3, 5, 10 | **5** |
 | Crossover probability | 0.6, 0.8, 0.9, 1.0 | **0.9** (0.8–1.0) |
 | Crossover type | uniform, per-substation | **per-substation** |
